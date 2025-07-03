@@ -19,6 +19,7 @@ class ChatMessage(BaseModel):  # Embedded model
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: Optional[datetime] = None
     deleted_at: Optional[datetime] = None
+    chat_session_id: str = Field(..., alias="session_id")  # Reference to the chat session
 
 class ChatSession(Document):  # Main document
     user_id: str

@@ -47,3 +47,5 @@ async def chat(request: ChatRequest) -> Dict[str, Any]:
         return {"reply": response.content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"AI error: {str(e)}")
+    
+
