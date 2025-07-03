@@ -1,0 +1,110 @@
+{
+    "info": {
+        "_postman_id": "firebase-auth-example-collection",
+        "name": "Firebase Auth Example",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Firebase Signup (Email/Password)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={{FIREBASE_API_KEY}}",
+                    "protocol": "https",
+                    "host": [
+                        "identitytoolkit.googleapis.com"
+                    ],
+                    "path": [
+                        "v1",
+                        "accounts:signUp"
+                    ],
+                    "query": [
+                        {
+                            "key": "key",
+                            "value": "{{FIREBASE_API_KEY}}"
+                        }
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"yourpassword\",\n  \"returnSecureToken\": true\n}"
+                }
+            }
+        },
+        {
+            "name": "Firebase Signin (Email/Password)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{FIREBASE_API_KEY}}",
+                    "protocol": "https",
+                    "host": [
+                        "identitytoolkit.googleapis.com"
+                    ],
+                    "path": [
+                        "v1",
+                        "accounts:signInWithPassword"
+                    ],
+                    "query": [
+                        {
+                            "key": "key",
+                            "value": "{{FIREBASE_API_KEY}}"
+                        }
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"yourpassword\",\n  \"returnSecureToken\": true\n}"
+                }
+            }
+        },
+        {
+            "name": "Verify Firebase Token (Backend)",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Authorization",
+                        "value": "Bearer {{FIREBASE_ID_TOKEN}}"
+                    }
+                ],
+                "url": {
+                    "raw": "http://localhost:5001/auth/firebase/verify",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5001",
+                    "path": [
+                        "auth",
+                        "firebase",
+                        "verify"
+                    ]
+                }
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "FIREBASE_API_KEY",
+            "value": "YOUR_FIREBASE_API_KEY"
+        },
+        {
+            "key": "FIREBASE_ID_TOKEN",
+            "value": ""
+        }
+    ]
+}
