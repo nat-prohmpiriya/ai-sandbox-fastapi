@@ -2,7 +2,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from fastapi import Request, HTTPException
 from typing import Callable, Awaitable
 from src.services.auth import verify_firebase_token
-from src.services.user import create_user
+from src.services.user import UserService
 import uuid
 from typing import Any
 
@@ -16,7 +16,7 @@ class FirebaseAuthMiddleware(BaseHTTPMiddleware):
             raise HTTPException(status_code=401, detail="Missing Firebase token")
         try:
             user_info: dict = verify_firebase_token(id_token)
-            await create_user(user_info)
+            await UserService.create_user(user_info)
             request.state.user = user_info
         except ValueError:
             raise HTTPException(status_code=401, detail="Invalid Firebase token")

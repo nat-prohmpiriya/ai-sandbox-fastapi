@@ -1,33 +1,17 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import datetime
 
-class UserBase(BaseModel):
-    email: EmailStr
-    username: str
-    is_active: Optional[bool] = True
-    is_superuser: Optional[bool] = False
-
-class UserCreate(UserBase):
-    password: str
-
-class UserUpdate(BaseModel):
+class UserResponse(BaseModel):
+    id: Optional[str] = None
     email: Optional[EmailStr] = None
-    username: Optional[str] = None
-    password: Optional[str] = None
-    is_active: Optional[bool] = None
-    is_superuser: Optional[bool] = None
-
-class UserInDBBase(UserBase):
-    id: Optional[int] = None
-    created_at: Optional[datetime] = None
+    display_name: Optional[str] = None
+    is_active: bool = True
+    created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True
 
-class User(UserInDBBase):
-    pass
-
-class UserInDB(UserInDBBase):
-    hashed_password: str
+class UserUpdateRequest(BaseModel):
+    display_name: Optional[str] = None
