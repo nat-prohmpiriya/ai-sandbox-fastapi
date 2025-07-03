@@ -33,3 +33,4 @@ htmlcov/
 .env
 .env.*
 firebase_key.json
+docs/AI-Local.postman_environment.json
