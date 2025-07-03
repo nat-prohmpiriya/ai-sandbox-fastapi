@@ -17,6 +17,7 @@ class Settings(BaseSettings):
 
     backend_cors_origins: List[str]
     firebase_credential_path: str
+    google_api_key: Optional[str] = None  # Optional, can be set in .env.local
 
     class Config:
         env_file = "src/config/.env.local"
