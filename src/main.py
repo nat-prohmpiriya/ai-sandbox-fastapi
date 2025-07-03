@@ -7,6 +7,7 @@ from src.config.settings import settings
 from src.middlewares.auth import FirebaseAuthMiddleware
 from src.routes.auth import router as auth_router
 from src.routes.user import router as user_router
+from src.routes.chat import router as chat_router
 
 
 app: FastAPI = FastAPI(root_path="/api/v1")
@@ -24,6 +25,7 @@ app.add_middleware(
 )
 app.include_router(auth_router)
 app.include_router(user_router)
+app.include_router(chat_router)
 
 @app.get("/", response_model=Dict[str, str])
 def read_root() -> Dict[str, str]:

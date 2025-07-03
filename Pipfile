@@ -17,6 +17,10 @@ uvicorn = "*"
 firebase-admin = "*"
 beanie = "*"
 motor = "*"
+langchain = "*"
+langchain-community = "*"
+langchain-openai = "*"
+langchain-google-genai = "*"
 
 [dev-packages]
 
