@@ -1,3 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Pipenv
+Pipfile.lock
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+
+# Docker
+*.pid
+
+# Test/coverage
+htmlcov/
+.coverage
+.tox/
+.pytest_cache/
+.cache/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Env
 .env
-.env.local
+.env.*
 firebase_key.json
