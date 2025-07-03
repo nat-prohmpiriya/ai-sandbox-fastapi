@@ -1,6 +1,9 @@
-[[sou[packages]
-fastapi = "*"
-uvicorn = {extras = ["standard"], version = "*"}
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
 pydantic = "*"
 pydantic-settings = "*"
 python-jose = {extras = ["cryptography"], version = "*"}
@@ -8,19 +11,9 @@ passlib = {extras = ["bcrypt"], version = "*"}
 python-multipart = "*"
 python-dotenv = "*"
 sqlalchemy = "*"
-email-validator = "*" = "https://pypi.org/simple"
-verify_ssl = true
-name = "pypi"
-
-[packages]
+email-validator = "*"
 fastapi = "*"
-uvicorn = {extras = ["standard"], version = "*"}
-pydantic = "*"
-pydantic-settings = "*"
-python-jose = {extras = ["cryptography"], version = "*"}
-passlib = {extras = ["bcrypt"], version = "*"}
-python-multipart = "*"
-python-dotenv = "*"
+uvicorn = "*"
 
 [dev-packages]
 
