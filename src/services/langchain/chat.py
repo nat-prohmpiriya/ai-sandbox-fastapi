@@ -81,13 +81,41 @@ class Chat:
             return [msg for msg in session.messages if msg.deleted_at is None]
         return []
 
-    async def chat_with_ai(self, session_id: str, user_message: str, 
-                          system_prompt: Optional[str] = None,
-                          model: str = "gemini-2.0-flash",
-                          temperature: float = 0.2,
-                          max_output_tokens: int = 1024,
-                          top_p: float = 0.95,
-                          top_k: int = 40) -> Optional[Dict[str, str]]:
+
+    async def update_message(self, session_id: str, message_id: str, new_content: str) -> bool:
+        """Update a message content"""
+        session: Optional[ChatSession] = await ChatSession.get(session_id)
+        if session:
+            for message in session.messages:
+                if message.id == message_id and message.deleted_at is None:
+                    message.content = new_content
+                    message.updated_at = datetime.utcnow()
+                    await session.save()
+                    return True
+        return False
+
+    async def delete_message(self, session_id: str, message_id: str) -> bool:
+        """Soft delete a message"""
+        session: Optional[ChatSession] = await ChatSession.get(session_id)
+        if session:
+            for message in session.messages:
+                if message.id == message_id:
+                    message.deleted_at = datetime.utcnow()
+                    await session.save()
+                    return True
+        return False
+    
+    async def chat_with_ai(
+            self, 
+            session_id: str, 
+            user_message: str, 
+            system_prompt: Optional[str] = None,
+            model: str = "gemini-2.0-flash",
+            temperature: float = 0.2,
+            max_output_tokens: int = 1024,
+            top_p: float = 0.95,
+            top_k: int = 40
+        ) -> Optional[Dict[str, str]]:
         """Chat with AI and save messages to database"""
         try:
             # Create user message
@@ -138,26 +166,3 @@ class Chat:
             
         except Exception as e:
             raise Exception(f"AI chat error: {str(e)}")
-
-    async def update_message(self, session_id: str, message_id: str, new_content: str) -> bool:
-        """Update a message content"""
-        session: Optional[ChatSession] = await ChatSession.get(session_id)
-        if session:
-            for message in session.messages:
-                if message.id == message_id and message.deleted_at is None:
-                    message.content = new_content
-                    message.updated_at = datetime.utcnow()
-                    await session.save()
-                    return True
-        return False
-
-    async def delete_message(self, session_id: str, message_id: str) -> bool:
-        """Soft delete a message"""
-        session: Optional[ChatSession] = await ChatSession.get(session_id)
-        if session:
-            for message in session.messages:
-                if message.id == message_id:
-                    message.deleted_at = datetime.utcnow()
-                    await session.save()
-                    return True
-        return False
